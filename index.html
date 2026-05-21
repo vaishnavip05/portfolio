@@ -172,8 +172,15 @@ nav{
   cursor:pointer;transition:border-color 0.2s,transform 0.2s;background:var(--bg);
 }
 .pdf-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 20px rgba(29,158,117,0.1)}
-.pdf-preview{width:100%;height:130px;overflow:hidden;background:var(--bg2);position:relative;pointer-events:none}
-.pdf-preview iframe{width:170%;height:220%;transform:scale(0.59);transform-origin:top left;border:none;pointer-events:none}
+.pdf-preview{width:100%;height:130px;overflow:hidden;background:var(--bg2);position:relative;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.pdf-preview iframe{width:170%;height:220%;transform:scale(0.59);transform-origin:top left;border:none;pointer-events:none;position:absolute;top:0;left:0}
+.pdf-placeholder{display:none;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--muted)}
+.pdf-placeholder svg{width:32px;height:32px;stroke:var(--accent);fill:none;stroke-width:1.5}
+.pdf-placeholder span{font-size:0.75rem;color:var(--muted)}
+@media(max-width:768px){
+  .pdf-preview iframe{display:none}
+  .pdf-placeholder{display:flex}
+}
 .pdf-label{padding:0.65rem 0.9rem;border-top:1px solid var(--border)}
 .pdf-label-name{font-size:0.85rem;font-weight:500;color:var(--text);line-height:1.4}
 .pdf-label-source{font-size:0.73rem;color:var(--muted);margin-top:0.2rem}
@@ -493,39 +500,48 @@ nav{
       <h3>Certifications</h3>
       <div class="pdf-grid">
         <div class="pdf-card" onclick="openPdf('cert1.pdf','Data Analytics with Python')">
-          <div class="pdf-preview"><iframe src="cert1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Data Analytics with Python</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert2.pdf','Data Science for Engineers')">
-          <div class="pdf-preview"><iframe src="cert2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Data Science for Engineers</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert3.pdf','Fundamentals of Artificial Intelligence')">
-          <div class="pdf-preview"><iframe src="cert3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Fundamentals of Artificial Intelligence</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert4.pdf','Cybersecurity and Privacy')">
-          <div class="pdf-preview"><iframe src="cert4.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert4.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Cybersecurity and Privacy</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert5.pdf','Cloud Computing and Distributed Systems')">
-          <div class="pdf-preview"><iframe src="cert5.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert5.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Cloud Computing &amp; Distributed Systems</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert6.pdf','Python for Data Science')">
-          <div class="pdf-preview"><iframe src="cert6.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert6.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Python for Data Science</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert7.pdf','Introduction to Microsoft Excel')">
-          <div class="pdf-preview"><iframe src="cert7.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert7.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Introduction to Microsoft Excel</div><div class="pdf-label-source">Coursera</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert8.pdf','AWS Cloud Practitioner Essentials')">
-          <div class="pdf-preview"><iframe src="cert8.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert8.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">AWS Cloud Practitioner Essentials</div><div class="pdf-label-source">AWS</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
         <div class="pdf-card" onclick="openPdf('cert9.pdf','Software Testing')">
-          <div class="pdf-preview"><iframe src="cert9.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="cert9.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label"><div class="pdf-label-name">Software Testing</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
         </div>
       </div>
@@ -571,7 +587,8 @@ nav{
       <h3>Publications</h3>
       <div class="pdf-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
         <div class="pdf-card" onclick="openPdf('pub1.pdf','Intrusion Detection Framework')">
-          <div class="pdf-preview"><iframe src="pub1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="pub1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label">
             <div class="pdf-label-name">An Intelligent Intrusion Detection Framework for Operating Systems Using System Call Activity</div>
             <div class="pdf-label-source">Novyi Mir Research Journal · Mar 2026 · ISSN: 0130-7673</div>
@@ -579,7 +596,8 @@ nav{
           </div>
         </div>
         <div class="pdf-card" onclick="openPdf('pub2.pdf','Emerging Genres in Movie Preferences')">
-          <div class="pdf-preview"><iframe src="pub2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="pub2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label">
             <div class="pdf-label-name">Emerging Genres: Unveiling New Trends in Movie Preferences</div>
             <div class="pdf-label-source">Fuzzy Systems and Soft Computing · 2024 · ISSN: 1819-4362</div>
@@ -587,7 +605,8 @@ nav{
           </div>
         </div>
         <div class="pdf-card" onclick="openPdf('pub3.pdf','Identifying Fake News Using Big Data')">
-          <div class="pdf-preview"><iframe src="pub3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-preview"><iframe src="pub3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe>
+        <div class="pdf-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>PDF Preview</span></div></div>
           <div class="pdf-label">
             <div class="pdf-label-name">Identifying Fake News Using Big Data</div>
             <div class="pdf-label-source">Intl. Journal of Distributed Computing and Technology · 2024 · ISSN: 2455-7307</div>
