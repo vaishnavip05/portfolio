@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaishnavi P – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --accent:#1D9E75;
+  --accent-light:#E1F5EE;
+  --accent-mid:#0F6E56;
+  --text:#1a1a1a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --bg:#ffffff;
+  --bg2:#f9fafb;
+  --serif:'DM Serif Display',serif;
+  --sans:'DM Sans',sans-serif;
+}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);min-height:100vh;font-size:16px}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:62px;
+}
+.nav-logo{font-family:var(--serif);font-size:1.35rem;color:var(--text);letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:0.25rem}
+.nav-link{
+  background:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:0.82rem;font-weight:400;
+  color:var(--muted);padding:0.45rem 0.9rem;border-radius:6px;
+  transition:all 0.15s;letter-spacing:0.04em;text-transform:uppercase;
+}
+.nav-link:hover{color:var(--text);background:var(--bg2)}
+.nav-link.active{color:var(--accent);font-weight:500}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;border-radius:6px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile dropdown */
+.mobile-menu{
+  display:none;position:fixed;top:62px;left:0;right:0;z-index:99;
+  background:#fff;border-bottom:1px solid var(--border);
+  flex-direction:column;padding:0.75rem 1.5rem 1rem;gap:0.25rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+}
+.mobile-menu.open{display:flex}
+.mobile-menu .nav-link{text-align:left;font-size:0.95rem;padding:0.7rem 0.9rem;border-radius:8px}
+
+.page{display:none;min-height:100vh;padding-top:62px}
+.page.active{display:block}
+
+/* Responsive page padding */
+@media(max-width:768px){
+  nav{padding:0 1.25rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .about-wrap,.exp-wrap,.proj-wrap,.edu-wrap,.ach-wrap,.contact-wrap{padding:2.5rem 1.25rem 2rem}
+  .about-top{flex-direction:column;align-items:center;text-align:center;gap:1.5rem}
+  .about-intro h1{font-size:2.2rem}
+  .about-bio{text-align:left}
+  .exp-top{flex-direction:column;gap:0.5rem}
+  .exp-date{align-self:flex-start}
+  .proj-card{flex-direction:column}
+  .proj-img{width:100%;height:180px}
+  .pdf-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .contact-wrap{padding:2.5rem 1.25rem 2rem}
+  .section-header h2{font-size:1.8rem}
+}
+
+/* ABOUT */
+.about-wrap{max-width:960px;margin:0 auto;padding:5rem 4rem 4rem}
+.about-top{display:flex;align-items:center;gap:3rem;margin-bottom:3rem}
+.avatar{
+  width:180px;height:180px;border-radius:50%;flex-shrink:0;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:2.5rem;color:var(--accent-mid);
+  border:3px solid var(--accent);overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center 15%;border-radius:50%}
+.about-intro h1{font-family:var(--serif);font-size:3.2rem;line-height:1.05;letter-spacing:-0.03em;margin-bottom:0.4rem}
+.about-intro h1 em{color:var(--accent);font-style:italic}
+.about-role{font-size:0.82rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-weight:500;margin-top:0.5rem}
+.about-bio{font-size:1.05rem;line-height:1.9;color:#374151;border-left:3px solid var(--accent);padding-left:1.5rem;margin-top:1.5rem;text-align:justify}
+.about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.1rem;text-align:center}
+.stat-num{font-family:var(--serif);font-size:1.8rem;color:var(--accent)}
+.stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-top:0.25rem}
+
+/* EXPERIENCE */
+.exp-wrap{max-width:960px;margin:0 auto;padding:4rem 4rem 4rem}
+.section-header{margin-bottom:2.5rem}
+.section-header h2{font-family:var(--serif);font-size:2.4rem;letter-spacing:-0.03em}
+.section-header p{color:var(--muted);font-size:1rem;margin-top:0.5rem}
+.exp-card{
+  border:1px solid var(--border);border-radius:14px;
+  padding:2rem 2.25rem;margin-bottom:1.5rem;position:relative;overflow:hidden;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.exp-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.exp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);border-radius:4px 0 0 4px}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+.exp-title{font-weight:500;font-size:1.1rem}
+.exp-company{color:var(--accent-mid);font-size:0.95rem;font-weight:500;margin-top:0.25rem}
+.exp-date{font-size:0.82rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:0.3rem 0.8rem;border-radius:20px;white-space:nowrap}
+.exp-bullets{margin-top:1rem;display:flex;flex-direction:column;gap:0.65rem}
+.exp-bullet{display:flex;gap:0.75rem;font-size:0.97rem;color:#374151;line-height:1.7}
+.exp-bullet::before{content:'→';color:var(--accent);flex-shrink:0;font-size:0.9rem;margin-top:0.2rem}
+
+/* PROJECTS */
+.proj-wrap{max-width:960px;margin:0 auto;padding:4rem 4rem 4rem}
+.proj-card{
+  border:1px solid var(--border);border-radius:14px;padding:2rem 2.25rem;
+  margin-bottom:1.5rem;transition:border-color 0.2s,transform 0.2s;
+  display:flex;gap:2rem;align-items:center;
+}
+.proj-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.proj-content{flex:1;min-width:0}
+.proj-img{width:190px;height:190px;flex-shrink:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.proj-img img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.proj-img-placeholder{font-size:2.5rem;color:var(--accent-light)}
+.proj-num{font-family:var(--serif);font-size:3.5rem;color:var(--accent-light);line-height:1;margin-bottom:0.5rem;font-weight:400}
+.proj-name{font-weight:500;font-size:1.2rem;margin-bottom:0.65rem}
+.proj-desc{font-size:0.97rem;color:#374151;line-height:1.8;margin-bottom:1.1rem}
+.proj-tech{display:flex;flex-wrap:wrap;gap:0.5rem}
+.proj-tech span{background:var(--bg2);border:1px solid var(--border);font-size:0.8rem;padding:0.3rem 0.7rem;border-radius:6px;color:var(--muted)}
+.proj-btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.proj-github{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.88rem;font-weight:500;color:var(--accent-mid);text-decoration:none;border:1px solid var(--accent);padding:0.4rem 1rem;border-radius:7px;transition:all 0.15s}
+.proj-github:hover{background:var(--accent);color:#fff}
+.proj-github svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.proj-demo{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.88rem;font-weight:500;color:#fff;text-decoration:none;background:var(--accent);padding:0.4rem 1rem;border-radius:7px;transition:all 0.15s;border:1px solid var(--accent)}
+.proj-demo:hover{background:var(--accent-mid);border-color:var(--accent-mid)}
+.proj-demo svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* EDUCATION & SKILLS */
+.edu-wrap{max-width:960px;margin:0 auto;padding:4rem 4rem 4rem}
+.edu-card{
+  border:1px solid var(--border);border-radius:14px;padding:1.75rem 2rem;
+  margin-bottom:1.25rem;display:flex;gap:1.5rem;align-items:flex-start;
+}
+.edu-icon{width:48px;height:48px;border-radius:10px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.edu-icon svg{width:24px;height:24px;stroke:var(--accent-mid);fill:none;stroke-width:2}
+.edu-deg{font-weight:500;font-size:1.05rem}
+.edu-school{color:var(--accent-mid);font-size:0.95rem;margin-top:0.3rem}
+.edu-meta{display:flex;gap:1.25rem;margin-top:0.6rem}
+.edu-meta span{font-size:0.88rem;color:var(--muted)}
+.edu-meta strong{color:var(--accent-mid);font-weight:500}
+.skills-grid{margin-top:2.5rem}
+.skill-group{margin-bottom:1.75rem}
+.skill-group-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:500;margin-bottom:0.75rem}
+.skill-chips{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-chip{background:var(--bg2);border:1px solid var(--border);font-size:0.88rem;padding:0.4rem 0.9rem;border-radius:7px;color:#374151}
+
+/* HONOURS */
+.ach-wrap{max-width:960px;margin:0 auto;padding:4rem 4rem 4rem}
+.ach-section{margin-bottom:3rem}
+.ach-section h3{font-family:var(--serif);font-size:1.8rem;letter-spacing:-0.02em;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+
+/* PDF card grid */
+.pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.1rem}
+.pdf-card{
+  border:1px solid var(--border);border-radius:11px;overflow:hidden;
+  cursor:pointer;transition:border-color 0.2s,transform 0.2s;background:var(--bg);
+}
+.pdf-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 20px rgba(29,158,117,0.1)}
+.pdf-preview{width:100%;height:130px;overflow:hidden;background:var(--bg2);position:relative;pointer-events:none}
+.pdf-preview iframe{width:170%;height:220%;transform:scale(0.59);transform-origin:top left;border:none;pointer-events:none}
+.pdf-label{padding:0.65rem 0.9rem;border-top:1px solid var(--border)}
+.pdf-label-name{font-size:0.85rem;font-weight:500;color:var(--text);line-height:1.4}
+.pdf-label-source{font-size:0.73rem;color:var(--muted);margin-top:0.2rem}
+.pdf-label-view{display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.5rem;font-size:0.75rem;color:var(--accent-mid);font-weight:500}
+.pdf-label-view svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Achievements row */
+.ach-list{display:flex;flex-direction:column;gap:0.85rem}
+.ach-item{display:flex;gap:0.85rem;padding:1.1rem 1.5rem;border:1px solid var(--border);border-radius:9px;cursor:pointer;transition:border-color 0.2s}
+.ach-item:hover{border-color:var(--accent)}
+.ach-item::before{content:'★';color:var(--accent);font-size:0.95rem;margin-top:0.1rem;flex-shrink:0}
+.ach-item-body{flex:1}
+.ach-item span{font-size:0.97rem;color:#374151;line-height:1.7;display:block}
+.ach-item-pdf{display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.4rem;font-size:0.78rem;color:var(--accent-mid);font-weight:500}
+.ach-item-pdf svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Modal */
+.pdf-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.6);align-items:center;justify-content:center}
+.pdf-modal.open{display:flex}
+.pdf-modal-box{background:#fff;border-radius:14px;overflow:hidden;width:min(820px,94vw);height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.pdf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.pdf-modal-title{font-weight:500;font-size:0.95rem;color:var(--text)}
+.pdf-modal-close{background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--muted);line-height:1;padding:0.2rem 0.5rem;border-radius:5px}
+.pdf-modal-close:hover{background:var(--bg2);color:var(--text)}
+.pdf-modal-body{flex:1;overflow:hidden}
+.pdf-modal-body iframe{width:100%;height:100%;border:none}
+
+/* CONTACT */
+.contact-wrap{max-width:640px;margin:0 auto;padding:5rem 4rem 4rem;text-align:center}
+.contact-wrap h2{font-family:var(--serif);font-size:2.8rem;letter-spacing:-0.03em;margin-bottom:0.6rem}
+.contact-sub{color:var(--muted);font-size:1rem;margin-bottom:3rem}
+.contact-cards{display:flex;flex-direction:column;gap:1.25rem}
+.contact-card{
+  display:flex;align-items:center;gap:1.25rem;
+  border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;
+  text-decoration:none;color:var(--text);transition:all 0.2s;text-align:left;
+}
+.contact-card:hover{border-color:var(--accent);background:var(--accent-light)}
+.contact-icon{width:52px;height:52px;border-radius:10px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:26px;height:26px;stroke:var(--accent-mid);fill:none;stroke-width:2}
+.contact-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:500}
+.contact-val{font-size:1rem;font-weight:500;margin-top:0.2rem;word-break:break-all}
+.contact-card:hover .contact-val{color:var(--accent-mid)}
+.contact-footer{margin-top:3rem;font-size:0.9rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Vaishnavi <span>P</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="show('about',this)">About</button>
+    <button class="nav-link" onclick="show('exp',this)">Experience</button>
+    <button class="nav-link" onclick="show('proj',this)">Projects</button>
+    <button class="nav-link" onclick="show('edu',this)">Education</button>
+    <button class="nav-link" onclick="show('ach',this)">Honours</button>
+    <button class="nav-link" onclick="show('contact',this)">Contact</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="nav-link active" onclick="showMobile('about',this)">About</button>
+  <button class="nav-link" onclick="showMobile('exp',this)">Experience</button>
+  <button class="nav-link" onclick="showMobile('proj',this)">Projects</button>
+  <button class="nav-link" onclick="showMobile('edu',this)">Education</button>
+  <button class="nav-link" onclick="showMobile('ach',this)">Honours</button>
+  <button class="nav-link" onclick="showMobile('contact',this)">Contact</button>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page active">
+  <div class="about-wrap">
+    <div class="about-top">
+      <div class="avatar">
+        <img src="profile.jpg" alt="Vaishnavi P" onerror="this.style.display='none';this.parentNode.innerHTML='VP'">
+      </div>
+      <div class="about-intro">
+        <h1>Vaishnavi <em>P</em></h1>
+        <div class="about-role">AI &amp; Full Stack Developer</div>
+      </div>
+    </div>
+    <p class="about-bio">
+      Aspiring technology professional pursuing Master of Computer Applications (Generative AI) at SRM Institute of Science and Technology, Chennai, with interests in Artificial Intelligence, software development, and intelligent application design. Passionate about building technology-driven solutions for real-world challenges with hands-on experience in AI-powered applications, full-stack development, chatbot systems, API integration, and web technologies. Skilled in Python development, database management, and creating scalable, user-focused applications by combining strong back-end capabilities with intuitive front-end experiences. Driven by innovation and continuous learning to develop efficient, impactful, and future-ready technology solutions.
+    </p>
+    <div class="about-stats">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Internships</div></div>
+      <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Projects</div></div>
+      <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Certifications</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Publications</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="exp" class="page">
+  <div class="exp-wrap">
+    <div class="section-header">
+      <h2>Work Experience</h2>
+      <p>Internships and professional roles</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-title">AI &amp; Python Developer Intern</div>
+          <div class="exp-company">Infosys · Remote</div>
+        </div>
+        <div class="exp-date">Aug – Oct 2025</div>
+      </div>
+      <div class="exp-bullets">
+        <div class="exp-bullet">Developed EnviroScan, an AI-based environmental monitoring system using Python, HTML, CSS, JavaScript, and JSON for real-time data analysis.</div>
+        <div class="exp-bullet">Integrated REST APIs to fetch real-time weather and air-quality data for processing.</div>
+        <div class="exp-bullet">Built and deployed a user-friendly web interface using Streamlit.</div>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-title">AI &amp; ML Developer</div>
+          <div class="exp-company">OneYes Infotech Solutions · Remote</div>
+        </div>
+        <div class="exp-date">May – Jun 2025</div>
+      </div>
+      <div class="exp-bullets">
+        <div class="exp-bullet">Developed an AI-powered customer support chatbot using Python, Flask, LangChain, and Ollama for conversational assistance.</div>
+        <div class="exp-bullet">Added chat history, voice, image, and document upload support with integrated front-end and back-end chatbot functionality.</div>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-title">Full Stack Web Developer Intern</div>
+          <div class="exp-company">ZF Group · Chennai, India</div>
+        </div>
+        <div class="exp-date">Apr – May 2024</div>
+      </div>
+      <div class="exp-bullets">
+        <div class="exp-bullet">Developed an employee portal using HTML, CSS, ASP, and MySQL for full-stack functionality.</div>
+        <div class="exp-bullet">Implemented dynamic features to enhance user interaction and streamline internal workflows.</div>
+        <div class="exp-bullet">Optimised database performance and ensured seamless front-end and back-end integration.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="proj" class="page">
+  <div class="proj-wrap">
+    <div class="section-header">
+      <h2>Projects</h2>
+      <p>Selected work and builds</p>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">01</div>
+        <div class="proj-name">EnviroScan – AI-Based Environmental Monitoring System</div>
+        <div class="proj-desc">Built a real-time environmental monitoring platform that aggregates live weather and air-quality data through REST API integration, processes it using Python, and presents actionable insights through an interactive, user-friendly web interface.</div>
+        <div class="proj-tech"><span>Python</span><span>Streamlit</span><span>REST APIs</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>JSON</span></div>
+        <div class="proj-btn-row"><a class="proj-demo" href="https://enviroscanproject-xrzxbbqkxusymnzkr5ornx.streamlit.app/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Project</a></div>
+      </div>
+      <div class="proj-img">
+        <img src="enviro.png" alt="EnviroScan – AI-Based Environmental Monitoring System" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">02</div>
+        <div class="proj-name">FamilyFaces – Memory &amp; Recognition Game for Autistic Children</div>
+        <div class="proj-desc">Designed and developed an interactive learning game to help autistic children recognise family members through visual and audio-based activities. Features name–face matching, voice identification, and guided pathfinding games to strengthen memory and social association skills.</div>
+        <div class="proj-tech"><span>Python</span><span>Streamlit</span><span>PIL</span><span>JSON</span></div>
+        <div class="proj-btn-row"><a class="proj-demo" href="https://knowmyfamily1-juswvq2hs56xicfrkzmhrs.streamlit.app/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Project</a></div>
+      </div>
+      <div class="proj-img">
+        <img src="fam.png" alt="FamilyFaces – Memory &amp; Recognition Game for Autistic Children" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">03</div>
+        <div class="proj-name">Green Steps – Environmental Awareness Platform</div>
+        <div class="proj-desc">Built an age-based environmental awareness application featuring interactive sustainability activities and games for different user groups. Developed and deployed using Python and Streamlit to promote environmental education through personalised engagement.</div>
+        <div class="proj-tech"><span>Python</span><span>Streamlit</span><span>API Integration</span><span>UI Development</span></div>
+        <div class="proj-btn-row"><a class="proj-demo" href="https://greensteps-aivnkhs7ga6karv6vclus6.streamlit.app/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Project</a></div>
+      </div>
+      <div class="proj-img">
+        <img src="green.png" alt="Green Steps – Environmental Awareness Platform" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">04</div>
+        <div class="proj-name">BlackoutChain – Intelligent Power Overload Prevention System</div>
+        <div class="proj-desc">A smart power management system that monitors electricity usage across multiple zones, detects overload conditions, and suggests corrective actions to improve grid stability and reduce power failure risks.</div>
+        <div class="proj-tech"><span>Python</span><span>Streamlit</span><span>GitHub</span><span>Streamlit Community Cloud</span></div>
+        <div class="proj-btn-row"><a class="proj-demo" href="https://powercut-gucgebkxqsgbrrosgdrjnk.streamlit.app/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Project</a></div>
+      </div>
+      <div class="proj-img">
+        <img src="blackout.png" alt="BlackoutChain – Intelligent Power Overload Prevention System" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">05</div>
+        <div class="proj-name">Helpie – AI-Based Multi-Modal Chatbot</div>
+        <div class="proj-desc">Developed an AI-powered customer support chatbot using Large Language Models to deliver context-aware conversational assistance. Enabled multi-modal interaction by supporting text, voice, image, and document inputs with chat history and personalised responses.</div>
+        <div class="proj-tech"><span>Python</span><span>Flask</span><span>Ollama</span><span>LangChain</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="proj-btn-row"><a class="proj-github" href="https://github.com/vaishnavip05/Chatbot" target="_blank"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> View on GitHub</a></div>
+      </div>
+      <div class="proj-img">
+        <img src="helpie.png" alt="Helpie – AI-Based Multi-Modal Chatbot" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-content">
+        <div class="proj-num">06</div>
+        <div class="proj-name">Blood Donation Management System</div>
+        <div class="proj-desc">Developed a web-based system to manage blood donation requests and donor information with efficient matching between donors and recipients. Implemented modules for donor registration, blood requests, and an admin dashboard to manage records and request approvals.</div>
+        <div class="proj-tech"><span>Java</span><span>JSP</span><span>JDBC</span><span>JavaScript</span><span>MySQL</span></div>
+        <div class="proj-btn-row"></div>
+      </div>
+      <div class="proj-img">
+        <img src="blood.png" alt="Blood Donation Management System" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION & SKILLS -->
+<div id="edu" class="page">
+  <div class="edu-wrap">
+    <div class="section-header">
+      <h2>Education &amp; Skills</h2>
+      <p>Academic background and technical toolkit</p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div>
+        <div class="edu-deg">Master of Computer Applications (Generative AI)</div>
+        <div class="edu-school">SRM Institute of Science and Technology, Chennai</div>
+        <div class="edu-meta">
+          <span>Jul 2025 – May 2027</span>
+          <span>CGPA: <strong>9.83</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div>
+        <div class="edu-deg">Bachelor of Computer Applications</div>
+        <div class="edu-school">M.O.P. Vaishnav College for Women, Chennai</div>
+        <div class="edu-meta">
+          <span>Aug 2022 – Apr 2025</span>
+          <span>CGPA: <strong>8.64</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="section-header" style="margin-bottom:1.5rem;margin-top:2rem">
+        <h2>Skills</h2>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Programming Languages</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Python</span><span class="skill-chip">Java</span><span class="skill-chip">JavaScript</span><span class="skill-chip">R</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Web Technologies</div>
+        <div class="skill-chips">
+          <span class="skill-chip">HTML5</span><span class="skill-chip">CSS</span><span class="skill-chip">JSP</span><span class="skill-chip">React JS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Databases &amp; Backend</div>
+        <div class="skill-chips">
+          <span class="skill-chip">MySQL</span><span class="skill-chip">JDBC</span><span class="skill-chip">Node JS</span><span class="skill-chip">Firebase</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Frameworks &amp; Libraries</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Streamlit</span><span class="skill-chip">NumPy</span><span class="skill-chip">Pandas</span><span class="skill-chip">Matplotlib</span><span class="skill-chip">NLTK</span><span class="skill-chip">TextBlob</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Platforms</div>
+        <div class="skill-chips">
+          <span class="skill-chip">GitHub</span><span class="skill-chip">VS Code</span><span class="skill-chip">Google Colab</span><span class="skill-chip">R Studio</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Soft Skills</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Leadership</span><span class="skill-chip">Time Management</span><span class="skill-chip">Team Collaboration</span><span class="skill-chip">Adaptability</span><span class="skill-chip">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HONOURS -->
+<div id="ach" class="page">
+  <div class="ach-wrap">
+    <div class="section-header">
+      <h2>Honours &amp; Recognition</h2>
+      <p>Certifications, achievements, and publications</p>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="ach-section">
+      <h3>Certifications</h3>
+      <div class="pdf-grid">
+        <div class="pdf-card" onclick="openPdf('cert1.pdf','Data Analytics with Python')">
+          <div class="pdf-preview"><iframe src="cert1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Data Analytics with Python</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert2.pdf','Data Science for Engineers')">
+          <div class="pdf-preview"><iframe src="cert2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Data Science for Engineers</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert3.pdf','Fundamentals of Artificial Intelligence')">
+          <div class="pdf-preview"><iframe src="cert3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Fundamentals of Artificial Intelligence</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert4.pdf','Cybersecurity and Privacy')">
+          <div class="pdf-preview"><iframe src="cert4.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Cybersecurity and Privacy</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert5.pdf','Cloud Computing and Distributed Systems')">
+          <div class="pdf-preview"><iframe src="cert5.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Cloud Computing &amp; Distributed Systems</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert6.pdf','Python for Data Science')">
+          <div class="pdf-preview"><iframe src="cert6.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Python for Data Science</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert7.pdf','Introduction to Microsoft Excel')">
+          <div class="pdf-preview"><iframe src="cert7.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Introduction to Microsoft Excel</div><div class="pdf-label-source">Coursera</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert8.pdf','AWS Cloud Practitioner Essentials')">
+          <div class="pdf-preview"><iframe src="cert8.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">AWS Cloud Practitioner Essentials</div><div class="pdf-label-source">AWS</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('cert9.pdf','Software Testing')">
+          <div class="pdf-preview"><iframe src="cert9.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label"><div class="pdf-label-name">Software Testing</div><div class="pdf-label-source">NPTEL</div><div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="ach-section">
+      <h3>Achievements</h3>
+      <div class="ach-list">
+        <div class="ach-item" onclick="openPdf('ach1.pdf','Best Outgoing Student – BCA')">
+          <div class="ach-item-body">
+            <span>Awarded Best Outgoing Student – BCA, March 2025</span>
+            <div class="ach-item-pdf"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div>
+          </div>
+        </div>
+        <div class="ach-item" onclick="openPdf('ach2.pdf','Student Minister of Social Welfare')">
+          <div class="ach-item-body">
+            <span>Honoured as Student Minister of Social Welfare (2024–2025), representing the BCA department</span>
+            <div class="ach-item-pdf"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div>
+          </div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-item-body">
+            <span>Presented research papers at national and international conferences – ICCCMIT, SAGE-AIML'25, DIGISF'26</span>
+            <div class="ach-item-pdf" style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem">
+              <span onclick="openPdf('ach3.pdf','Research Paper – ICCCMIT')" style="display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;color:var(--accent-mid);font-size:0.78rem;font-weight:500"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> ICCCMIT</span>
+              <span onclick="openPdf('ach4.pdf','Research Paper – SAGE-AIML\'25')" style="display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;color:var(--accent-mid);font-size:0.78rem;font-weight:500"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> SAGE-AIML'25</span>
+              <span onclick="openPdf('ach5.pdf','Research Paper – DIGISF\'26')" style="display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;color:var(--accent-mid);font-size:0.78rem;font-weight:500"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> DIGISF'26</span>
+            </div>
+          </div>
+        </div>
+        <div class="ach-item" onclick="openPdf('ach6.pdf','Most Innovative Solution Award – Mind over Machine')">
+          <div class="ach-item-body">
+            <span>Received the Most Innovative Solution Award at the national-level hackathon Mind over Machine: AI Challenge (February 2, 2024)</span>
+            <div class="ach-item-pdf"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Certificate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="ach-section">
+      <h3>Publications</h3>
+      <div class="pdf-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+        <div class="pdf-card" onclick="openPdf('pub1.pdf','Intrusion Detection Framework')">
+          <div class="pdf-preview"><iframe src="pub1.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label">
+            <div class="pdf-label-name">An Intelligent Intrusion Detection Framework for Operating Systems Using System Call Activity</div>
+            <div class="pdf-label-source">Novyi Mir Research Journal · Mar 2026 · ISSN: 0130-7673</div>
+            <div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Publication</div>
+          </div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('pub2.pdf','Emerging Genres in Movie Preferences')">
+          <div class="pdf-preview"><iframe src="pub2.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label">
+            <div class="pdf-label-name">Emerging Genres: Unveiling New Trends in Movie Preferences</div>
+            <div class="pdf-label-source">Fuzzy Systems and Soft Computing · 2024 · ISSN: 1819-4362</div>
+            <div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Publication</div>
+          </div>
+        </div>
+        <div class="pdf-card" onclick="openPdf('pub3.pdf','Identifying Fake News Using Big Data')">
+          <div class="pdf-preview"><iframe src="pub3.pdf#toolbar=0&navpanes=0&scrollbar=0" loading="lazy"></iframe></div>
+          <div class="pdf-label">
+            <div class="pdf-label-name">Identifying Fake News Using Big Data</div>
+            <div class="pdf-label-source">Intl. Journal of Distributed Computing and Technology · 2024 · ISSN: 2455-7307</div>
+            <div class="pdf-label-view"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> View Publication</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div class="pdf-modal" id="pdfModal" onclick="closePdfModal(event)">
+  <div class="pdf-modal-box">
+    <div class="pdf-modal-header">
+      <span class="pdf-modal-title" id="pdfModalTitle"></span>
+      <button class="pdf-modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe id="pdfModalFrame" src=""></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <div class="contact-wrap">
+    <h2>Get in Touch</h2>
+    <p class="contact-sub">Open to opportunities, collaborations, and conversations.</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="mailto:vaishnavip5114@gmail.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val">vaishnavip5114@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://linkedin.com/in/vaishnavip05/" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-val">linkedin.com/in/vaishnavip05</div>
+        </div>
+      </a>
+    </div>
+    <div class="contact-footer">Based in Chennai, India · Available for remote &amp; hybrid roles</div>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function showMobile(id, btn) {
+  show(id, btn);
+  // also sync desktop nav active state
+  document.querySelectorAll('.nav-links .nav-link').forEach(b => {
+    b.classList.remove('active');
+    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  // close menu
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+// close menu on outside click
+document.addEventListener('click', function(e){
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.getElementById('hamburger');
+  if(menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)){
+    menu.classList.remove('open');
+    ham.classList.remove('open');
+  }
+});
+function openPdf(src, title) {
+  document.getElementById('pdfModalTitle').textContent = title;
+  document.getElementById('pdfModalFrame').src = src;
+  document.getElementById('pdfModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('pdfModal').classList.remove('open');
+  document.getElementById('pdfModalFrame').src = '';
+  document.body.style.overflow = '';
+}
+function closePdfModal(e) {
+  if (e.target === document.getElementById('pdfModal')) closeModal();
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
